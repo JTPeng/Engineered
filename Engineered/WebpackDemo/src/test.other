@@ -1,0 +1,7 @@
+<script>
+    export default {
+        name: 'jack',
+        age:    36,
+        sex: 'male'
+    }
+</script>
