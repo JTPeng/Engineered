@@ -7,7 +7,9 @@
     "build": "webpack --config build/webpack.vue.config.js",
     "dev": "webpack-dev-server",
     "build:vue": "webpack --config build/webpack.vue.config.js",
-    "dev:vue": "webpack-dev-server --config build/webpack.vue.config.js"
+    "dev:vue": "webpack-dev-server --config build/webpack.vue.config.js",
+    "build:mpVue": "webpack --config build/webpack.vue.mpa.config.js",
+    "dev:mpVue": "webpack-dev-server --config build/webpack.vue.mpa.config.js"
   },
   "keywords": [],
   "author": "",
