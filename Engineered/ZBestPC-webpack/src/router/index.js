@@ -1,11 +1,9 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 
-Vue.use(VueRouter);
-
-export default new VueRouter({
+const router = createRouter({
+  history: createWebHashHistory(),
   routes: [
     {
       path: "/",
@@ -24,3 +22,5 @@ export default new VueRouter({
     },
   ],
 });
+
+export default router;

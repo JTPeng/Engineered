@@ -2,9 +2,11 @@
   <div>
     <!------------------------------head------------------------------>
     <div class="head">
+      <div>{{ message }}</div>
       <div class="wrapper clearfix">
         <div class="clearfix" id="top">
           <h1 class="fl">
+            const router = router()
             <a href="index.html"><img src="img/logo.png" /></a>
           </h1>
           <div class="fr clearfix" id="top1">
@@ -369,6 +371,7 @@
         </div>
       </div>
     </div>
+    const router = router()
     <!--返回顶部-->
     <div class="gotop">
       <a href="cart.html">
@@ -430,16 +433,27 @@
 </template>
 
 <script>
-import "../css/public.css";
 import "../css/index.css";
 import "jquery";
 import "../js/public";
 import "../js/nav";
+import { useRouter } from "vue-router";
+import { onMounted, ref } from "vue";
+
 export default {
-  methods: {
-    toLogin() {
-      this.$router.push("/login");
-    },
+  setup(props) {
+    const router = useRouter();
+    const message = ref("");
+    onMounted(() => {
+      message.value = "Vue3";
+    });
+    const toLogin = () => {
+      router.push("/login");
+    };
+    return {
+      message,
+      toLogin,
+    };
   },
 };
 </script>
