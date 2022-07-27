@@ -29,7 +29,7 @@ const config = {
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/,

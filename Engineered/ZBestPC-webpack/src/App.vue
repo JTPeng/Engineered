@@ -1,11 +1,9 @@
 <template>
-  <div id-="app">{{ message }} <Home /></div>
+  <router-view></router-view>
 </template>
 
 <script>
-import Home from "./Home.vue";
 export default {
-  components: { Home },
   data() {
     return {
       message: "hello",
@@ -14,4 +12,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>
