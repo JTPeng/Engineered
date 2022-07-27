@@ -27,4 +27,9 @@ import "../../css/login.css";
 export default {};
 </script>
 
-<style></style>
+<style>
+#app {
+  width: 100%;
+  height: 100%;
+}
+</style>

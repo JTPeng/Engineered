@@ -11,7 +11,9 @@
     "build:mpVue": "webpack --config build/webpack.vue.mpa.config.js",
     "dev:mpVue": "webpack-dev-server --config build/webpack.vue.mpa.config.js",
     "build:vue3": "webpack --config build/webpack.vue3.config.js",
-    "dev:vue3": "webpack-dev-server --config build/webpack.vue3.config.js"
+    "dev:vue3": "webpack-dev-server --config build/webpack.vue3.config.js",
+    "build:mpVue3": "webpack --config build/webpack.vue3.mpa.config.js",
+    "dev:mpVue3": "webpack-dev-server --config build/webpack.vue3.mpa.config.js"
   },
   "keywords": [],
   "author": "",

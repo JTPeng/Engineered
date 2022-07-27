@@ -2,6 +2,7 @@
   <div>
     <!------------------------------head------------------------------>
     <div class="head">
+      <div>{{ message }}</div>
       <div class="wrapper clearfix">
         <div class="clearfix" id="top">
           <h1 class="fl">
@@ -430,12 +431,28 @@
 </template>
 
 <script>
-import "../../css/public.css";
 import "../../css/index.css";
 import "jquery";
 import "../../js/public";
 import "../../js/nav";
+import { useRouter } from "vue-router";
+import { onMounted, ref } from "vue";
+
 export default {
+  setup(props) {
+    const router = useRouter();
+    const message = ref("");
+    onMounted(() => {
+      message.value = "Vue3";
+    });
+    const toLogin = () => {
+      router.push("/login");
+    };
+    return {
+      message,
+      toLogin,
+    };
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
-import Vue from "vue";
-import Home from "./Home.vue";
 
-new Vue({
-  render: (h) => h(Home),
-}).$mount("#app");
+import { createApp } from "vue";
+import Home from "./Home.vue";
+import "../../css/public.css";
+
+createApp(Home).mount("#app");

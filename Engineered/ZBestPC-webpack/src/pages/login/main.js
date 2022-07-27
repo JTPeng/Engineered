@@ -1,6 +1,5 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import Login from "./Login.vue";
+import "../../css/public.css";
 
-new Vue({
-  render: (h) => h(Login),
-}).$mount("#app");
+createApp(Login).mount("#app");
