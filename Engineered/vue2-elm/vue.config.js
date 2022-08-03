@@ -13,6 +13,17 @@ module.exports = {
   publicPath: "./",
   parallel: true,
   configureWebpack: smp.wrap({
+    cache: {
+      type: "filesystem",
+      // cacheDirectory: path.resolve(__dirname, "./node_modules/.cache-temp"),
+      // name: "vue3-ele", // 缓存的文件夹名称
+      // cacheDirectory和name的结合
+      cacheLocation: path.resolve(
+        __dirname,
+        "./node_modules/.cache-temp",
+        "vue3-ele"
+      ),
+    },
     resolve: {
       alias: {
         src: path.resolve(__dirname, "./src"),
@@ -20,22 +31,6 @@ module.exports = {
         components: path.resolve(__dirname, "./src/components"),
       },
     },
-    // module: {
-    //   rules: [
-    //     {
-    //       test: /\.js$/,
-    //       exclude: /node_modules/,
-    //       use: [
-    //         {
-    //           loader: "thread-loader",
-    //           options: {
-    //             worker: 5,
-    //           },
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
     plugins: [
       new BundleAnalyzer({
         analyzerMode: process.env.BUILD === "true" ? "server" : "false",
