@@ -6,8 +6,10 @@
   "private": true,
   "license": "GPL",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "serve": "cross-env MEASURE=true vue-cli-service serve",
+    "serve:speed": " cross-env MEASURE=true vue-cli-service serve",
+    "serve:build": " cross-env BUILD=true vue-cli-service serve",
+    "build": "cross-env MEASURE=true vue-cli-service build"
   },
   "dependencies": {
     "better-scroll": "1.15.2",
@@ -21,9 +23,13 @@
   "devDependencies": {
     "@vue/cli-service": "^5.0.8",
     "@vue/compiler-sfc": "^3.2.37",
+    "cross-env": "^7.0.3",
     "sass": "^1.54.1",
     "sass-loader": "^13.0.2",
+    "speed-measure-webpack-plugin": "^1.5.0",
+    "thread-loader": "^3.0.4",
     "webpack": "^5.74.0",
+    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.10.0"
   },
   "engines": {
