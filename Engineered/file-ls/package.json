@@ -1,0 +1,19 @@
+{
+  "name": "file-ls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "file-ls": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "mocha test/test.js",
+    "test:args": "mocha test/test.arg.js -a -l"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^10.1.0"
+  }
+}
