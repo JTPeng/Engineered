@@ -11,5 +11,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "commander": "^9.4.1"
+  },
+  "dependencies": {
+    "semver": "^7.3.8"
+  }
 }
