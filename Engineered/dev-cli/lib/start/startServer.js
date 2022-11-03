@@ -4,12 +4,13 @@ const cp = require("child_process");
 // const devServer = require("./devServer");
 let child;
 // 1.启动服务
-function runServer() {
+function runServer(args) {
+  const { config = "" } = args;
   const scriptPath = path.resolve(__dirname, "./devServer.js");
-  child = cp.fork(scriptPath, ["--port 8080"]);
+  child = cp.fork(scriptPath, ["--port 8080", `--config ${config}`]);
   child.on("exit", (code) => {
     if (code) {
-      process.exit(1); // 退出
+      process.exit(code); // 退出
     }
   });
 }
@@ -26,10 +27,10 @@ function runWatcher() {
 }
 
 function onChange() {}
-module.exports = function (arg, opts, cmd) {
-  console.info("start server...");
+module.exports = function (opts, cmd) {
+  console.info("start server...", cmd.optsWithGlobals());
   // 1.通过子进程启动`webpack-dev-server`服务
-  runServer();
+  runServer(opts);
   // 2.监听配置修改
   runWatcher();
 };
