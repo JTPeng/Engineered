@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+checkDebug();
 
 const { Command } = require("commander");
 const pag = require("../package.json");
@@ -7,6 +8,14 @@ const { MIN_NODE_VERSION } = require("../lib/constant");
 const startServer = require("../lib/start/startServer");
 const build = require("../lib/build/build");
 const program = new Command();
+
+function checkDebug() {
+  if (process.argv.indexOf("--debug") >= 0 || process.argv.indexOf("-d") >= 0) {
+    process.env.LOG_LEVELS = "verbose";
+  } else {
+    process.env.LOG_LEVELS = "info";
+  }
+}
 
 (async () => {
   try {
