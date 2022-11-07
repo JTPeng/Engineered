@@ -1,20 +1,26 @@
 const path = require("path");
 const fs = require("fs");
+const WebpackChain = require("webpack-chain");
 const log = require("../utils/log");
-const { getConfigFile } = require("../utils");
+const { getConfigFile, loadModule } = require("../utils");
 const { HOOK_START, HOOK_KEYS } = require("./const");
 class Service {
   constructor(opts) {
     this.args = opts;
     this.config = {};
     this.hooks = {};
+    this.plugins = [];
     this.dir = process.cwd();
+    this.webpackConfig = null;
+    this.internalValue = {};
   }
   // 启动服务
   async start() {
-    this.resolveConfig();
-    this.registerHooks();
+    await this.resolveConfig();
+    await this.registerHooks();
     await this.emitHooks(HOOK_START);
+    await this.registerPlugin();
+    this.runPlugin();
   }
 
   // 解析配置文件
@@ -33,12 +39,13 @@ class Service {
       configFilePath = getConfigFile({ cwd: this.dir });
       // 文件是否存在
       if (configFilePath && fs.existsSync(configFilePath)) {
-        this.config = require(configFilePath);
+        this.config = await loadModule(configFilePath);
       } else {
         console.info("配置文件不存在，终止执行");
         process.exit(1);
       }
     }
+    this.webpackConfig = new WebpackChain();
     console.info("configFilePath", configFilePath);
   }
 
@@ -61,6 +68,7 @@ class Service {
       });
     }
   }
+
   async emitHooks(key) {
     const hooks = this.hooks[key];
     log.info("hooks", hooks);
@@ -74,5 +82,79 @@ class Service {
       }
     }
   }
+
+  runPlugin() {
+    log.info("runPlugin");
+    // for (const plugin of this.plugins) {
+    //   const { mod, param } = plugin;
+    //   log.info("runPlugin", mod, API, options);
+    //   if (!mod) {
+    //     continue;
+    //   }
+    //   const API = {
+    //     chainWebpack: this.getWebpackConfig,
+    //     emitHooks: this.emitHooks,
+    //     setValue: this.setValue,
+    //     getValue: this.getValue,
+    //     log,
+    //   };
+    //   const options = {
+    //     ...params,
+    //   };
+    //   log.info("runPlugin", API, options);
+    //   await mod(API, options);
+    //   // console.info("runPlugin", plugin);
+    // }
+  }
+  // 解析插件
+  async registerPlugin() {
+    let { plugins } = this.config;
+    log.info("plugin", plugins);
+    if (plugins) {
+      if (typeof plugins === "function") {
+        plugins = plugins();
+      }
+      if (Array.isArray(plugins)) {
+        for (const plugin of plugins) {
+          if (typeof plugin === "string") {
+            const mod = await loadModule(plugin);
+            log.info("mod", mod);
+            this.plugins.push({
+              mod,
+            });
+          } else if (Array.isArray(plugin)) {
+            log.info("Array", plugin);
+            const [pluginPath, pluginParam] = plugin;
+            const mod = await loadModule(pluginPath);
+            log.info("mod", mod);
+            this.plugins.push({
+              mod,
+              param: pluginParam,
+            });
+          } else if (typeof plugin === "function") {
+            this.plugins.push({
+              mod: plugin,
+            });
+          }
+        }
+      }
+    }
+    log.info("aaaa");
+  }
+
+  //
+  getWebpackConfig = () => {
+    return this.webpackConfig;
+  };
+
+  //
+  setValue = (key, value) => {
+    this.internalValue[key] = value;
+  };
+
+  //
+  getValue = (key) => {
+    return this.internalValue[key];
+  };
 }
 module.exports = Service;

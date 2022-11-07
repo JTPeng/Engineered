@@ -1,6 +1,6 @@
 export default {
   entry: "./src/main.js",
-  plugin: ["dev-config-test"],
+  plugins: ["dev-config-test"],
   hooks: [
     [
       "created",
